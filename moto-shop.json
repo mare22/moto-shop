@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "moto-shop-a9729",
+  "private_key_id": "e23b5423df0a5dcc1d689b0000ad79de958e11a1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDuKfHKLP2CoRN0\nKvcXg9tdVtg7sgQ97YE4VQWWrbqPXFcE2B9EcXKnrHsgHFlynukE/c+3MUCQEP0B\nZ6M4MaxHK2C/9K8praDL+HJg/Hg9G/f8zC6TwU8I9niQl0+QLnDD7SY3RSCSm/iu\nfhPCgNxIJ0dfeaB7QTpZksZlrfErZlENxuI4HbI228xd1YJBSh8p0bncAxh5oexG\nK3AuOUD3GB2gIYfTMThxYgdAxAq7e47VEhA+5PvRzMTNlYWCxnHJ2q49XSruA34f\nU87ZNTzH23B5dxNhznpIesPy9myPWd1r7M5qdZn8mMukZty/12c3NAYJdBacKY7p\nn8yHWVHlAgMBAAECggEAAw07CafnbK3TMb0eMukv3aOP/D3U85UwP3BJdMuPlSgt\n/kQlrGsWuMLLRhdO5xrVqgh1iaeiJ+Zr04GINB9g0X2jDPqd5vcQVSS/FHKPuNq7\no/vaye5jbJ4538JslNCfhccrYvBqES7Z8iRv7OFZUTxdnAHTNlkY3g51J9bhfPiZ\nk7FOAVAbBzog6cX0msZSCMiFVBOh6zNFxG/k7fyyIgjy2Y9psE4m162wPOskVnGf\nkZdhVyKDqnLb1+hSNWPJKk26oPj0Kk0d0EK3MILBDJpIwOph2++1AtS/sP16oydS\nZxlT0bSCToFCBFuzdpIUcHWjMed3gil2iC1EIffr0QKBgQD6TWx1FDwcC5rUNKrg\n5Yit/K+6yqF4rALXsIzYM7ZyOlo21PiNurXJaS0gIfp19r9tooBfhSoq1KLNdXEm\n+4YWTyJwZThHCMKNxt8i0116Fiy9XPSXKnUBQT5+4f1ZDjVSopxImtnk73KbjgXN\nQa6gcglcbEXIW0GDX0JCt84qNQKBgQDzlclBlirMtl8H5AFIpwA5R8pktN7YBfX5\nKPdsMTGanQMjYV9RN4ywZgP/22AZqHjA3/g3xUhApwkbAdGQ/kxOV+wp0KZpHVY+\nWVyHERA3WAfCrJZejGIZ049V1ikguaEOqMcPIx0wlrG6Ofr9RXGOls4+wB0ILKR2\nCzooQzf+8QKBgDr9BiNtemENpxZ9twu7bIO8elmmKXm76AuW8wp83XF8KQilFlKo\nfvERlW3uNA2a8jBPTLu2MWLYq+mJ1Pnf6xDU44PjhujOurMY/DtD3tLH6RFTl90M\nR3jdPHJApilXvN9VrUk7HUDj4XmhdeKSqSns1iHu7l8yinUAfSgmEzNFAoGATNUy\nZj23wlrEHvkMbp4+s9KxRJLIt9spey4w3S+nNd3Q35gXOMcM2ZdUK6BG79D0ReJf\nqTfRUpNdi+dG8zVDXHLfS1FFLGLUkVYemXwIYWyjBgTqaWheiUbyL2EeF/R1mOoj\n3+Jzkp/174faY4lECHYJGEIA5lMujQ19irWpNAECgYEAmjDI69E+3EOTkpS3M5cb\nbxwiXsS/tyvcWmV2oUCaZjBMnG1B5l3mbxYtAmXhRK/HkWVtTUU4SiCxW58TL7U7\ntb5QPZexCr4PaGNByx7smZxwQiU6QMzpYf5G7S4pYs/t3bbT90K7dCm4ve3grAQQ\njjgQnjbC0LqEqDB6+L+jFW4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-q97lz@moto-shop-a9729.iam.gserviceaccount.com",
+  "client_id": "118068927129667353824",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-q97lz%40moto-shop-a9729.iam.gserviceaccount.com"
+}

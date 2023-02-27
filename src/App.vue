@@ -178,10 +178,20 @@
 </template>
 
 <script>
-// import { RouterView } from 'vue-router'
+import firebase from "./firebaseInit";
+import 'firebase/compat/firestore';
+
+const db = firebase.firestore();
 
 export default {
-  name: 'App'
+  name: 'App',
+  async mounted() {
+    const products = await db.collection("products").get();
+
+    products.docs.forEach((doc) => {
+        console.log(doc.data());
+    })
+  }
 }
 </script>
 
