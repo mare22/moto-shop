@@ -45,32 +45,32 @@
             
             <div class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img src="../src/assets/content-images/helmetfinal.png" alt=""></a>
+                    <a href="" alt=""><img src="../src/assets/images/content-images/helmetfinal.png" alt=""></a>
                 </div> <!--end.content-img-->
                 <h4>HELMETS</h4>
             </div> <!--end.content-box-->
 
             <div class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img src="../src/assets/content-images/jacketfinal.png" alt=""></a>
+                    <a href="" alt=""><img src="../src/assets/images/content-images/jacketfinal.png" alt=""></a>
                 </div>
                 <h4>JACKETS</h4>
             </div> <!--end.content-box-->
             <div class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img class="gloves" src="../src/assets/content-images/gfinal.png" alt=""> </a>
+                    <a href="" alt=""><img class="gloves" src="../src/assets/images/content-images/gfinal.png" alt=""> </a>
                 </div>
                 <h4>GLOVES</h4>
             </div> <!--end.content-box-->
             <div class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img src="../src/assets/content-images/shoesfinal.png" alt=""></a>
+                    <a href="" alt=""><img src="../src/assets/images/content-images/shoesfinal.png" alt=""></a>
                 </div>
                 <h4>SHOES</h4>
             </div> <!--end.content-box-->
             <div class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""> <img src="../src/assets/content-images/accfinal.png" alt=""></a>
+                    <a href="" alt=""> <img src="../src/assets/images/content-images/accfinal.png" alt=""></a>
                 </div>
                 <h4>ACCESSORIES</h4>
             </div> <!--end.content-box-->
@@ -85,18 +85,18 @@
         <p>We have tried to always offer the latest and best models of Scorpion helmets, Ikon clothes, TCKS shoes, Puig tuning parts and 20 other brands,<br> all at popular prices, with complete service and fast delivery.
         </p>
         <div class="brands-wrapper">
-            <img src="../src/assets/brands/scorpiont.png" alt="">
-            <img src="../src/assets/brands/ixont.png" alt="">
-            <img src="../src/assets/brands/spykett.png" alt="">
-            <img src="../src/assets/brands/tcxtt.png" alt="">
-            <img src="../src/assets/brands/puigt.jpg.png" alt="">
+            <img src="../src/assets/images/brands/scorpiont.png" alt="">
+            <img src="../src/assets/images/brands/ixont.png" alt="">
+            <img src="../src/assets/images/brands/spykett.png" alt="">
+            <img src="../src/assets/images/brands/tcxtt.png" alt="">
+            <img src="../src/assets/images/brands/puigt.jpg.png" alt="">
         </div><!--end.brands-wrapper-->
         <div class="brands2-wrapper">
-            <img src="../src/assets/brands/lampat.png" alt="">
-            <img src="../src/assets/brands/furygant.png" alt="">
-            <img src="../src/assets/brands/galfert.png" alt="">
-            <img src="../src/assets/brands/kyttt.png" alt="">
-            <img src="../src/assets/brands/suomyt.png" alt="">
+            <img src="../src/assets/images/brands/lampat.png" alt="">
+            <img src="../src/assets/images/brands/furygant.png" alt="">
+            <img src="../src/assets/images/brands/galfert.png" alt="">
+            <img src="../src/assets/images/brands/kyttt.png" alt="">
+            <img src="../src/assets/images/brands/suomyt.png" alt="">
         </div><!--end.brands2-wrapper-->
     </div> <!--end.brands-->
 
@@ -116,7 +116,7 @@
 
             <div class="article-outer">
                     <div class="img-container">
-                       <a href=""><img src="../src/assets/news/fb.jpg" alt=""> </a>
+                       <a href=""><img src="../src/assets/images/news/fb.jpg" alt=""> </a>
                     </div> <!--end.img-container-->
                     <h2>
                         The Sun Daily
@@ -131,7 +131,7 @@
 
             <div class="article-outer">
                 <div class="img-container">
-                   <a href=""><img src="../src/assets/news/2.jpg" alt=""> </a>
+                   <a href=""><img src="../src/assets/images/news/2.jpg" alt=""> </a>
                 </div> <!--end.img-container-->
                 <h2>
                     Scorpion EXO-TECH new <br>Flip-Back
@@ -144,7 +144,7 @@
 
         <div class="article-outer">
             <div class="img-container">
-               <a href=""><img src="../src/assets/news/3.jpg" alt=""> </a>
+               <a href=""><img src="../src/assets/images/news/3.jpg" alt=""> </a>
             </div> <!--end.img-container-->
             <h2>Suomy and KYT models at purchase prices
             </h2>
