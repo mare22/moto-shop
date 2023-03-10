@@ -5,10 +5,10 @@
                     <a href="" alt=""><img class="logo" src="../assets/images/logo.png"></a>
                     <nav>                            
                         <input type="checkbox" id="check">
-                        <label for="check" class="hamburger-btn">
+                        <label for="check" class="hamburger-btn" style="text-align:center">
                             <i class="fas fa-bars" style="color: white;"></i>
                         </label>
-                        <ul class="nav-list">
+                        <ul class="nav-list" style="text-align:center">
                             <li><a class="active" href="">HOME</a></li> 
                             <li><a class="active"  href="">ABOUT US</a></li>
                             <li><a class="active"  href="">NEWS</a></li>

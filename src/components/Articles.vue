@@ -7,44 +7,34 @@
         </div> <!--end.wrapper-->
 
         <div class="content-wrapper">
-            
-            <div class="content-box">
+
+            <div v-for="(category,index) in categories" :key="index" class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img src="../assets/images/content-images/helmetfinal.png" alt=""></a>
+                    <a href="" alt=""><img :src="require('../assets/images/' + category.img)" alt=""></a>
+                    
                 </div> <!--end.content-img-->
-                <h4>HELMETS</h4>
+                <h4>{{ category.name }}</h4>
             </div> <!--end.content-box-->
 
-            <div class="content-box">
-                <div class="content-img">
-                    <a href="" alt=""><img src="../assets/images/content-images/jacketfinal.png" alt=""></a>
-                </div>
-                <h4>JACKETS</h4>
-            </div> <!--end.content-box-->
-            <div class="content-box">
-                <div class="content-img">
-                    <a href="" alt=""><img class="gloves" src="../assets/images/content-images/gfinal.png" alt=""> </a>
-                </div>
-                <h4>GLOVES</h4>
-            </div> <!--end.content-box-->
-            <div class="content-box">
-                <div class="content-img">
-                    <a href="" alt=""><img src="../assets/images/content-images/shoesfinal.png" alt=""></a>
-                </div>
-                <h4>SHOES</h4>
-            </div> <!--end.content-box-->
-            <div class="content-box">
-                <div class="content-img">
-                    <a href="" alt=""> <img src="../assets/images/content-images/accfinal.png" alt=""></a>
-                </div>
-                <h4>ACCESSORIES</h4>
-            </div> <!--end.content-box-->
         </div>
     </div> <!--end.articles-->
 </template>
 <script>
+import CategoryService from '../services/CategoryService'
+
 export default {
-    name: 'articles'
+    name: 'articles',
+    data() {
+        return {
+            categories: []
+        }
+    },
+    async mounted() {
+        const categoryService = new CategoryService();
+        this.categories = await categoryService.all();
+
+        
+  }
 }
 </script>
 <style lang="">
