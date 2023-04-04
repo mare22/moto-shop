@@ -1,14 +1,16 @@
 <template>
-    <div class="top">
-        <Header/>
-        <Intro />
-    </div> <!--end.top-->
+  <div>
+      <div class="top">
+          <Header/>
+          <Intro />
+      </div> <!--end.top-->
 
-    <Articles />
-    <Brands />
-    <News />
-    <Customers />
-    
+      <Articles />
+      <Brands />
+      <News />
+      <Customers />
+      <Footer/>
+  </div>
 </template>
 
 <script>
@@ -20,10 +22,22 @@ import Brands from '../components/Brands'
 import News from '../components/News'
 import Customers from '../components/Customers'
 import ProductService from '../services/ProductService';
+import Footer from '../components/Footer'
 
+import { onBeforeMount } from 'vue'
+import { useStore } from 'vuex' 
 // import CategoryService from '../services/CategoryService'
 
 export default {
+  setup() {
+    const store = useStore()
+
+    onBeforeMount(() => {
+      // console.log(store.state.user.email)
+      const user = store.dispatch('fetchUser')
+      console.log(user);
+    })
+  },
   name: 'home',
   components: {
     Header,
@@ -32,7 +46,7 @@ export default {
     Brands,
     News,
     Customers,
- 
+    Footer
     
   },
   async mounted() {

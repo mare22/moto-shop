@@ -24,6 +24,36 @@ export default {
     name: 'brands'
 }
 </script>
-<style lang="">
-    
+<style scoped>
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .brands h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    padding: 20px 0;
+  }
+  .brands p {
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 70%;
+    font-size: 16px;
+    min-height: 60px;
+  }
+  .brands-wrapper img {
+    width: 12%;
+  }
+  .brands2-wrapper img {
+    width: 12%;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px)  {
+  .brands p {
+    width: 70%;
+  }
+}
+
 </style>

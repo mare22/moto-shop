@@ -4,6 +4,6 @@ import router from './router'
 import './assets/styles.scss';
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import store from './store'
 
-
-createApp(App).use(router).mount('#app')  
+createApp(App).use(router).use(store).mount('#app')  

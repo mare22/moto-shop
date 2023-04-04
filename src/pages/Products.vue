@@ -2,133 +2,71 @@
   <Header />
   <div class="products">
    <div class="products-wrapper">
-      <div class="products-container">
-        
-        <div class="single-container">
+      <div v-for="(products, index) in chunkArray(products, 4)" :key="index" class="products-container">
+        <div v-for="(product, index) in products" :key="index" class="single-container">
           <div class="image-container">
-            <img src="../assets/images/h11.png" alt="">
+            <router-link :to="'/SingleProduct/' + product.id">
+              <img :src="require('../assets/images/' + product.img)" alt="">
+            </router-link>
           </div><!--end.image-container-->
-            <h3>Product Name</h3>
+            <h3>{{ product.name}}</h3>
             <div class="price">
-              <h4>90e</h4>
+              <h4>{{ product.price}}€</h4>
             </div> <!--end.price-->
             <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
+              <button @click="AddProductToCart(product.id)"><i class="fa-solid fa-cart-shopping"></i></button>
             </div>
-        </div><!--end.single-container-->
-      
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h3.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-   
-
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h22.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h22.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
+        </div>
       </div><!--end.products-container-->
    </div><!--end products-wrapper-->
 
-
-
-   <div class="products-wrapper">
-      <div class="products-container">
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h11.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h3.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h22.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-
-        <div class="single-container">
-          <div class="image-container">
-            <img src="../assets/images/h22.png" alt="">
-          </div><!--end.image-container-->
-            <h3>Product Name</h3>
-            <div class="price">
-              <h4>90e</h4>
-            </div> <!--end.price-->
-            <div class="btn-wrapper">
-              <button><i class="fa-solid fa-cart-shopping"></i></button>
-            </div>
-        </div><!--end.single-container-->
-      </div><!--end.products-container-->
-   </div><!--end products-wrapper-->
   </div> <!--end.products-->
-       
+   <Footer />    
 </template>
 <script>
 import Header from '../components/Header'
+import Footer from '../components/Footer'
+import ProductService from '../services/ProductService'
 
 export default {
-    name: '/products', 
+    name: 'products',
+    data() {
+      return {
+        products: [],
+        productService: new ProductService(),
+      }
+    },
     components: {
        Header,
+       Footer
+    },
+    async mounted() {
+        const category = this.$route.params.category;
+        this.products = await this.productService.getByCategory(category);
+        if(this.products.length === 0) {
+          console.error("Nije dobr url putanje")
+        }
+
+    },
+    methods: {
+      // Da izlomimo niz tj product u manje delove
+      chunkArray(inputArray, perChunk) {
+        return inputArray.reduce((resultArray, item, index) => { 
+            const chunkIndex = Math.floor(index/perChunk)
+
+            if(!resultArray[chunkIndex]) {
+              resultArray[chunkIndex] = [] // start a new chunk
+            }
+
+            resultArray[chunkIndex].push(item)
+
+            return resultArray
+          }, [])
+      },
+
+      AddProductToCart(productId) {
+        this.$store.commit('ADD_PRODUCT_TO_CART', productId); 
+      }
     }
 }
 
@@ -137,11 +75,13 @@ export default {
 <style scoped>
 
   .products {
-    background-color:#d3d3d3
+    background-color:#d3d3d3;
+    border-bottom: 1px solid red;
+    border-top: 1px solid red;
   }
     h3 {
       color:black;
-      font-size:16px;
+      font-size:15px;
     }
     .products-wrapper {
       width: 80%;
@@ -151,8 +91,10 @@ export default {
    
     .single-container {
       text-align: center;
-
+      width: 150px;
+      padding-bottom: 20px;
     }
+
     .single-container:hover {
       background-color: #d97676;
       border-radius: 7%;
@@ -174,7 +116,7 @@ export default {
       transform: scale(1.1);
     }
     .price {
-      padding: 8px 0
+      padding: 8px 0;
     }
     .btn-wrapper button{
     padding: 3px 18px;

@@ -6,56 +6,89 @@
             </p>
         </div><!--end.intro-text-->
         <div class="news-wrapper">
+          <SingleNews 
+            image="fb.jpg" 
+            title="The Sun Daily <br> Pecco rakes up seventh season win with Malaysian GP victory" 
+            text="Born in Turin, Bagnaia was already successful early on in Minimoto, as he won the European MiniGP championship in 2009..."
+          />
 
-            <div class="article-outer">
-                    <div class="img-container">
-                       <a href=""><img src="../assets/images/news/fb.jpg" alt=""> </a>
-                    </div> <!--end.img-container-->
-                    <h2>
-                        The Sun Daily
-                        Pecco rakes up seventh season win with Malaysian GP victory
-                    </h2>
-                    <div class="entry-content">
-                        <p>Born in Turin, Bagnaia was already successful early on in Minimoto, as he won the European MiniGP championship in 2009...
-                        </p>
-                        <a href=""><button class="read-c">READ CONTENT</button></a> 
-                    </div><!--end.entry-content-->
-            </div><!--end.article-outer-->
+          <SingleNews 
+            image="2.jpg" 
+            title="Scorpion EXO-TECH new <br>Flip-Back" 
+            text="It is the first Flip-Back helmet from the Scorpion brand. It is currently the most modern and..."
+          />
+          
 
-            <div class="article-outer">
-                <div class="img-container">
-                   <a href=""><img src="../assets/images/news/2.jpg" alt=""> </a>
-                </div> <!--end.img-container-->
-                <h2>
-                    Scorpion EXO-TECH new <br>Flip-Back
-                </h2>
-                <div class="entry-content">
-                    <p>It is the first Flip-Back helmet from the Scorpion brand. It is currently the most modern and... </p>
-                    <a href=""><button class="read-c">READ CONTENT</button></a> 
-                </div><!--end.entry-content-->
-        </div><!--end.article-outer-->
-
-        <div class="article-outer">
-            <div class="img-container">
-               <a href=""><img src="../assets/images/news/3.jpg" alt=""> </a>
-            </div> <!--end.img-container-->
-            <h2>Suomy and KYT models at purchase prices
-            </h2>
-            <div class="entry-content">
-                <p>SUOMY HALO (integral helmet with sun visor and free Pinlock) is now at the lowest price of 15,000 dinars for one color and 18,000...
-                </p>
-               <a href="index.html"><button class="read-c">READ CONTENT</button></a> 
-            </div><!--end.entry-content-->
-        </div><!--end.article-outer-->
+          <SingleNews  
+            image="3.jpg" 
+            title="Suomy and KYT models at purchase prices" 
+            text="SUOMY HALO (integral helmet with sun visor and free Pinlock) is now at the lowest price of 15,000 dinars for one color and 18,000..."
+          />
 
         </div><!--end.news-wrapper-->
     </div><!--end.news-->
 </template>
 <script>
+import SingleNews from '../components/SingleNews'
+
 export default {
-    name: 'news'
+  name: 'news',
+  components: {
+    SingleNews
+  },
+ 
 }
+
 </script>
-<style lang="">
-    
+<style scoped>
+  .news {
+  border-bottom: 2px solid #cf0e0e;
+  width: 100%;
+}
+.news h1 {
+  text-align: center;
+  padding: 20px 0 0;
+  font-size: 33px;
+}
+.news .intro-text {
+  text-align: center;
+}
+.news p {
+  padding: 10px 0;
+  width: 70%;
+  margin: 0 auto;
+}
+
+
+
+@media screen and (min-width: 320px) and (max-width: 600px) {
+  .article-outer {
+  width: 250px;
+  margin: 0 auto;
+}
+.article-outer img {
+  width: 100%;
+  height: 150px;
+  text-align:center;
+}
+.article-outer h2 {
+  padding-bottom: 2px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+}
+.article-outer p {
+  width: 70%;
+  font-weight: 200;
+  padding: 10px 0;
+  margin: 0 auto;
+  font-size: 15px;
+}
+.entry-content .read-c {
+  margin-bottom: 20px;
+  
+}
+
+}
+
 </style>

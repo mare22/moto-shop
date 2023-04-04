@@ -10,7 +10,13 @@
 
             <div v-for="(category,index) in categories" :key="index" class="content-box">
                 <div class="content-img">
-                    <a href="" alt=""><img :src="require('../assets/images/' + category.img)" alt=""></a>
+                    <router-link :to="'/products/' + category.name">
+                        <img :src="require('../assets/images/' + category.img)" alt="">
+                    </router-link>
+
+                    <!-- <a href="" alt="">
+                        <img :src="require('../assets/images/' + category.img)" alt="">
+                    </a> -->
                     
                 </div> <!--end.content-img-->
                 <h4>{{ category.name }}</h4>
@@ -37,6 +43,44 @@ export default {
   }
 }
 </script>
-<style lang="">
+<style scoped>
+    @media screen and (min-width: 320px) and (max-width: 600px) {
+    .articles .wrapper h2 {
+    font-size: 23px;
+    text-align: center;
+  }
+  .articles .wrapper p {
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 250px;
+    font-size: 17px;
+  }
+  
+  .content-wrapper {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .content-box {
+    text-align: center;
+  }
+  .content-box img {
+    width: 40%;
+    padding: 8px 0;
+  }
+  .content-box h4 {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+  
+  .content-img {
+    border: 1.7px solid #cf0e0e;
+    border-radius: 10px;
+    box-shadow: 5px 4px 15px;
+    color: #575757;
     
+  }
+    }
 </style>

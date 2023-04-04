@@ -11,9 +11,11 @@ export default class ProductService {
 
         const newProducts = [];
         products.docs.forEach((product) => {
-            newProducts.push(product.data());
-        })
+            product = {...product.data(), ...{'id': product.id}}
 
+            newProducts.push(product);
+        })
+        
         return newProducts;
     }
 
@@ -32,5 +34,25 @@ export default class ProductService {
         })
 
         return prodcutsByCat;
+    }
+
+    async getById(productId) { // ovde pozivamo id proizvoda iz baze i vucemo kod nas na front
+        const products = await this.all();
+
+        for(let product of products) {
+            if(product.id === productId) {
+                return product;
+            }
+        }
+
+        return null;
+
+    }
+
+    async updateProduct(productId, data) {
+        await this.db
+            .collection('products')
+            .doc(productId)
+            .update(data);
     }
 }

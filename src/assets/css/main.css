@@ -50,7 +50,7 @@ h3 {
   
 }
 .navbar ul li a {
-  text-decoration: none;
+  
   color: white;
   padding: 20px;
 }
@@ -70,6 +70,7 @@ h3 {
 
 .navbar ul li:hover::after {
   width: 60%;
+  
 }
 
 .navlinks {
@@ -248,6 +249,7 @@ h2 {
 .entry-content {
   text-align: center;
 }
+
 .entry-content .read-c {
   padding: 9px 15px;
   cursor: pointer;
@@ -262,44 +264,6 @@ h2 {
 .read-c:hover {
   background-color: #cf0e0e;
   transition: 0.2s;
-}
-
-.tnx-customers {
-  background-image: url(../images/news/bg.jpg);
-  background-position: bottom;
-  background-size: cover;
-  width: auto;
-  min-height: 300px;
-  border-bottom: 1px solid #cf0e0e;
-}
-
-.bg-hero .wrapper {
-  width: 80%;
-  padding: 60px 0;
-  text-align: center;
-  margin: 0 auto;
-}
-.bg-hero .wrapper p {
-  color: white;
-  font-size: 20px;
-  padding: 20px 0;
-}
-.bg-hero .wrapper h2 {
-  padding: 18px 0 35px;
-  color: white;
-}
-.bg-hero .wrapper .view-offer {
-  padding: 9px 15px;
-  cursor: pointer;
-  background-color: #cf0e0e;
-  color: white;
-  border-radius: 5px 12px;
-  border: none;
-  font-size: 14px;
-  font-weight: bold;
-}
-.bg-hero .wrapper .view-offer:hover {
-  background-color: #9f0000;
 }
 
 
@@ -406,113 +370,6 @@ h2 {
     
   }
 
-  /*------------BRANDS----------------*/
-
-  .brands {
-    border-bottom: 2px solid #cf0e0e;
-    width: 100%;
-    background-color: #eae8e8;
-  }
-  .brands h1 {
-    text-align: center;
-    font-weight: 600;
-    font-size: 33px;
-    padding: 20px 0;
-  }
-  .brands p {
-    text-align: center;
-    margin: 0 auto;
-    padding: 10px 0;
-    width: 450px;
-    font-size: 18px;
-  }
-  
-  .brands-wrapper {
-    display: flex;
-    width: 60%;
-    margin: 0 auto;
-    justify-content: space-between;
-  }
-  .brands-wrapper img {
-    width: 20%;
-  }
-  
-  .brands2-wrapper {
-    display: flex;
-    width: 60%;
-    margin: 0 auto;
-    justify-content: space-between;
-  }
-  .brands2-wrapper img {
-    width: 20%;
-  }
-  
-
-  /*----------------NEWS----------------------*/
-
-.news {
-  border-bottom: 2px solid #cf0e0e;
-  width: 100%;
-}
-.news h1 {
-  text-align: center;
-  padding: 20px 0 0;
-  font-size: 33px;
-}
-.news .intro-text {
-  text-align: center;
-}
-.news p {
-  padding: 10px 0;
-  width: 70%;
-  margin: 0 auto;
-}
-
-.news-wrapper {
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  padding: 30px 0;
-  margin: 0 auto;
-}
-.entry-content {
-  text-align: center;
-}
-.entry-content .read-c {
-  margin-bottom: 20px;
-}
-.article-outer {
-  width: 330px;
-}
-.article-outer img {
-  width: 100%;
-  height: 200px;
-}
-.article-outer h2 {
-  padding-bottom: 2px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 22px;
-}
-.article-outer p {
-  width: 70%;
-  font-weight: 200;
-  padding: 10px 0;
-  margin: 0 auto;
-}
-
-/* ------------TNX CUSTOMERS-------------*/
-
-.bg-hero .wrapper {
-  width: 80%;
-  padding: 60px 0;
-  text-align: center;
-  margin: 0 auto;
-}
-.bg-hero .wrapper p {
-  color: white;
-  font-size: 18px;
-}
 
 
 }
@@ -562,30 +419,6 @@ h2 {
     font-size: 16px;
   }
 
-
-  .brands h1 {
-    text-align: center;
-    font-weight: 600;
-    font-size: 28px;
-    padding: 20px 0;
-  }
-  .brands p {
-    text-align: center;
-    margin: 0 auto;
-    padding: 10px 0;
-    width: 70%;
-    font-size: 15px;
-    min-height: 60px;
-  }
-  .brands-wrapper img {
-    width: 11%;
-  }
-  .brands2-wrapper img {
-    width: 11%;
-  }
-
-
-
   .news-wrapper {
     display: flex;
     padding: 30px 0;
@@ -596,9 +429,7 @@ h2 {
   .news h1 {
     font-size: 28px;
   }
-  .news p {
-    font-size: 15px;
-  }
+ 
   .article-outer {
     transition: 0.5s;
     width: 180px;
@@ -615,7 +446,7 @@ h2 {
     font-size: 17px;
   }
   .article-outer p {
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
     font-weight: 200;
     padding: 10px 0;
@@ -678,6 +509,15 @@ h2 {
   }
 }
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .top {
+    height: 50vh;
+  }
+  .intro .wrapper h1 {
+    margin-top: 100px;
+    font-size: 24px;
+    padding: 20px 0;
+  }
+
   .hamburger-btn {
     display: none;
     cursor: pointer;
@@ -699,9 +539,7 @@ h2 {
     padding: 5px 0;
   }
 
-  .brands p {
-    width: 70%;
-  }
+
   .news-wrapper {
     display: flex;
     padding: 30px 0;
@@ -726,11 +564,7 @@ h2 {
     padding: 20px 0;
     margin: 0 5px;
   }
-  .intro .wrapper h1 {
-    margin-top: 150px;
-    font-size: 22px;
-    padding: 25px 0;
-  }
+
 }
 @media screen and (min-width: 1281px) {
   .hamburger-btn {
@@ -751,14 +585,17 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
+  .content-box:hover {
+    background-color: white;
+    border-radius: 7%;
+  }
   .articles {
     border-top: 2px solid #cf0e0e;
     padding-bottom: 50px;
     border-bottom: 2px solid #cf0e0e;
   }
-  
+
   .articles .wrapper {
-    
     margin: 0 auto;
     padding: 40px 0;
   }
@@ -776,13 +613,5 @@ h2 {
     display: grid;
   }
 
-  .brands p {
-    width: 300px;
-  }
-  .brands-wrapper {
-    width: 350px;
-  }
-  .brands2-wrapper {
-    width: 350px;
-  }
+ 
 }

@@ -18,8 +18,10 @@
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
     "node-sass": "^8.0.0",
+    "sweetalert2": "^11.7.3",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
