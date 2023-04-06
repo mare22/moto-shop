@@ -57,8 +57,10 @@ import Footer from '../components/Footer.vue'
     }
     .news-page-wrapper p {
        margin: 0 auto;
+       text-align:center;
        width: 80%;
        padding: 20px 0;
+       font-weight:400;
     }
 
   

@@ -6,7 +6,7 @@
         <h2 v-html="title">
         </h2>
         <div class="entry-content">
-            <p v-html="text">
+            <p class="cutoff-text" v-html="text" >
             </p>
 
         <button @click="readContent()" class="read-c">READ CONTENT</button>
@@ -29,7 +29,14 @@ export default {
 }
 </script>
 <style scoped>
+    .cutoff-text {
+        --max-lines: 3;
+        --line-height: 1.2;
 
+        height:calc((var(--max-lines) *1em *var(--line-height) ));
+        
+        overflow:hidden;
+    }
 
 
 

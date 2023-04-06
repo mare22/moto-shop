@@ -4,7 +4,7 @@
     </div> <!--end.img-cont-->
     <div class="content-container">
         <h3>Product name: {{ name }}</h3>
-        <p>Product price: {{ price }} $</p>
+        <p>Product price: <br> {{ price }} $</p>
     </div><!--end.content-container-->
     <div class="total">
         <p>Quantity:</p>
@@ -14,7 +14,7 @@
             <span @click="increaseQuantity" class="plus">+</span>
         </div>
         <div class="amount">
-            <p>{{ price * quantity }}$</p>
+            <p class="product-total-price">{{ price * quantity }}$</p>
         </div>
         <button @click="$emit('remove', productId)" class="remove">REMOVE</button>
     </div> <!--end.total-->
@@ -31,6 +31,7 @@ export default {
     methods: {
         increaseQuantity() {
             this.quantity += 1;
+            this.$emit('quantityChange');
 
         },
         decreaseQuantity() {
@@ -38,6 +39,8 @@ export default {
                 return;
             }
             this.quantity -= 1;
+
+            this.$emit('quantityChange');
         },
     },
 
@@ -117,5 +120,67 @@ export default {
         font-weight:bold;
         color:red;
         font-size:18px;
+    }
+
+
+    @media screen and (min-width: 320px) and (max-width: 600px) {
+    .chart-wrapper {
+        width: 250px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+    .chart-wrapper h2{
+        text-align:center;
+        font-size:18px;
+        
+    }
+    .img-cont{
+        text-align:center;
+    }
+    .container {
+        display:block;
+        
+    }
+    .content-container h3 {
+        font-size: 17px;
+        text-align:center;
+        padding:10px 0;
+    }
+    .content-container p {
+        text-align:center;
+    }
+    .quantity-wrapper {
+        margin: 0 auto;
+    }
+    .total {
+        font-size: 18px;
+        font-weight: bold;
+        color: red;
+        padding:10px 0;
+        text-align:center;
+    }
+    .checkout {
+        padding: 5px 18px;
+        cursor: pointer;
+        border: 1px solid black;
+        color: white;
+        border-radius: 5px 10px;
+        font-size: 13px;
+        font-weight: bold;
+        background-color: red;
+        display:block;
+        margin:auto;
+        
+    }
+    .total-container {
+        width: 100%;
+        margin: 0 auto;
+        background-color:#aaaa;
+        border-radius: 10px;
+        padding-bottom: 10px;
+        box-shadow: 1px 2px 3px grey;
+    }
+    
+
     }
 </style>

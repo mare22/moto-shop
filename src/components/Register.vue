@@ -6,26 +6,28 @@
                 <div class="name">
                     <p>Name:</p>
                     <input type="name" v-model="name">
+                    <p class="errmsg"></p>
                 </div>
+                <p id="errmsg">Name must have at least one letter...</p>
                 <div class="email">
                     <p>Email:</p>
                     <input 
                     type="email"
                     v-model="register_form.email">
                 </div>
-                
+                <p id="errmsg">Email must have @ character...</p>
                 <div class="password">
                     <p>Password:</p>
                     <input 
                     type="password" 
                     v-model="register_form.password">
                 </div>
-
+                <p id="errmsg">Password must contain at least 5 sharacters...</p>
                 <div class="address">
                     <p>Address:</p>
                     <textarea type="address" class="address" rows="3"> </textarea>
                 </div>
-                
+                <p id="errmsg">Address must have at least 10 characters...</p>
                 <div class="country">
                     <p>Country:</p>
                         <select id="categories" class="categories">
@@ -83,10 +85,14 @@ export default {
     
 </script>
 <style scoped>
+    #errmsg {
+        color:red;
+        font-size:12px;
+        
+    }
     .name {
         display: flex;
         margin-left: 50px;
-        margin-bottom: 10px;
     }
     .name input {
         margin-left: 40px;
@@ -95,18 +101,14 @@ export default {
     .email {
         display: flex;
         margin-left: 50px;
-        margin-bottom: 10px;
     }
     .email input {
         margin-left: 42px;
         width:200px;
-
     }
-
     .password {
         display: flex;
         margin-left: 50px;
-        margin-bottom: 10px;
     }
     .password input {
         margin-left: 16px;
@@ -115,7 +117,6 @@ export default {
     .address {
         display: flex;
         margin-left: 50px;
-        margin-bottom: 5px;
     }
     .address textarea {
         margin-left: 28px;

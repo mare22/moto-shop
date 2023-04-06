@@ -9,14 +9,7 @@
             <div class="info-container">
                 <h1>{{ product.name}}</h1>
                 <h2>{{ product.price}}e</h2>
-                <div class="chart-wrapper">
-                    <div class="quantity-wrapper">
-                        <span @click="decreaseQuantity" class="minus">-</span>
-                        <span class="num"> {{ quantity }}</span>
-                        <span @click="increaseQuantity" class="plus">+</span>
-                    </div>
-                    <button class="chart">ADD TO CHART</button>
-                </div>
+                    <button @click="AddProductToCart(product.id)" class="chart">ADD TO CHART</button>
             </div><!--info-container-->
         </div>
     </div> <!--end.single-product-->
@@ -52,7 +45,6 @@ export default {
         Comments
     },
     async mounted() {
-        // const id = this.$route.params.id
         const productService = new ProductService();
         
         this.product = await productService.getById(this.$route.params.id);
@@ -67,7 +59,10 @@ export default {
                 return;
             }
             this.quantity -= 1;
-        }
+        },
+        AddProductToCart(productId) {
+        this.$store.commit('ADD_PRODUCT_TO_CART', productId); 
+      }
     }
 }
 
@@ -106,28 +101,7 @@ export default {
     .info-container h2 {
         color:#cf0e0e;
     }
-    .quantity-wrapper {
-        height: 30px;
-        width: 90px;
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        background-color: white;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    }
-    .quantity-wrapper span {
-        width: 100%;
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    .quantity-wrapper span.num {
-        border-right: 2px solid rgba(0,0,0,0.2);
-        border-left: 2px solid rgba(0,0,0,0.2);
-        pointer-events: none;
-    }
+    
     .info-container button {
         padding: 5px 18px;
         cursor: pointer;
@@ -137,6 +111,7 @@ export default {
         font-size: 15px;
         font-weight: bold;
         background-color: red;
+        margin-top:10px;
 
     }
     .info-container button:hover {
@@ -149,13 +124,7 @@ export default {
         padding-top: 20px;
         font-size: 28px;
     }
-    .chart-wrapper {
-        display: flex;
-        padding-top: 20px;
-    }
-    .info-container button {
-        margin-left: 20px;
-    }
+  
     .description {
         border-bottom: 1px solid red;
     }
@@ -172,7 +141,7 @@ export default {
 
 
 
-    @media screen and (min-width: 320px) and (max-width: 600px) {
+    @media screen and (min-width: 320px) and (max-width: 768px) {
     .wrapper {
         width: 80%;
         flex-direction: column;
@@ -190,6 +159,7 @@ export default {
     .info-container{
         margin: 0 auto;
     }
+  
     .info-container h1 {
         font-size: 23px;
         text-align: center;
@@ -206,8 +176,52 @@ export default {
     .description p {
         text-align: center;
     }
-    }
 
+    .info-container button {
+        padding: 5px 18px;
+        cursor: pointer;
+        border: 1px solid black;
+        color: white;
+        border-radius: 5px 10px;
+        font-size: 13px;
+        font-weight: bold;
+        background-color: red;
+        margin-top:10px;
+        margin-left:90px;
+        text-align:center;
+        
+    }
+    
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+        .wrapper {
+        width: 80%;
+        display:flex;
+        padding: 20px 0; 
+    }
+    .img-container img {
+        width: 180px;
+        text-align: center;
+    }
+    .img-container {
+        padding: 5px 0;
+        width: 180px;
+        margin: 0 auto;
+    }
+    
+    .info-container h1 {
+        font-size: 23px;
+        text-align: center;
+        padding-top: 15px;
+    }
+    .info-container h2 {
+        text-align:center;
+    }
+    .info-container .chart {
+       
+    }
+    }
+    }
+    
 
     
 </style>
