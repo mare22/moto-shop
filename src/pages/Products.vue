@@ -6,7 +6,7 @@
         <div v-for="(product, index) in products" :key="index" class="single-container">
           <div class="image-container">
             <router-link :to="'/SingleProduct/' + product.id">
-              <img :src="require('../assets/images/' + product.img)" alt="">
+              <img :src="'https://drive.google.com/uc?id=' + product.img" alt="">
             </router-link>
           </div><!--end.image-container-->
             <h3>{{ product.name}}</h3>
@@ -14,7 +14,7 @@
               <h4>{{ product.price}}€</h4>
             </div> <!--end.price-->
             <div class="btn-wrapper">
-              <button @click="AddProductToCart(product.id)"><i class="fa-solid fa-cart-shopping"></i></button>
+              <button @click="AddProductToCart(product)"><i class="fa-solid fa-cart-shopping"></i></button>
             </div>
         </div>
       </div><!--end.products-container-->
@@ -64,8 +64,9 @@ export default {
           }, [])
       },
 
-      AddProductToCart(productId) {
-        this.$store.commit('ADD_PRODUCT_TO_CART', productId); 
+      AddProductToCart(product) {
+          product.quantity = 1;
+          this.$store.commit('ADD_PRODUCT_TO_CART', product); 
       }
     }
 }

@@ -4,7 +4,7 @@
         <div class="single-product">
         <div class="wrapper">
             <div class="img-container">
-                <img :src="require('../assets/images/' + product.img)" >
+                <img :src="'https://drive.google.com/uc?id=' + product.img" >
             </div> <!--end.img-container-->
             <div class="info-container">
                 <h1>{{ product.name}}</h1>

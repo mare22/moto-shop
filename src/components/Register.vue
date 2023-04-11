@@ -1,36 +1,35 @@
 <template>
+    <Header />
     <div class="main-register">
         <div class="register-wrapper">
             <form class="register"  @submit.prevent="registerUser">
                 <h2>REGISTER</h2>
                 <div class="name">
                     <p>Name:</p>
-                    <input type="name" v-model="name">
+                    <input type="name" v-model="register_form.name">
                     <p class="errmsg"></p>
                 </div>
-                <p id="errmsg">Name must have at least one letter...</p>
+                <p v-if="name_error" id="errmsg">Name must have at least two letters...</p>
                 <div class="email">
                     <p>Email:</p>
-                    <input 
-                    type="email"
-                    v-model="register_form.email">
+                    <input type="email" v-model="register_form.email">
                 </div>
-                <p id="errmsg">Email must have @ character...</p>
+                <p id="errmsg" v-if="email_error">Email must have @ character...</p>
                 <div class="password">
                     <p>Password:</p>
                     <input 
                     type="password" 
                     v-model="register_form.password">
                 </div>
-                <p id="errmsg">Password must contain at least 5 sharacters...</p>
+                <p v-if="register_form.password_error" id="errmsg">Password must contain at least 6 sharacters...</p>
                 <div class="address">
                     <p>Address:</p>
-                    <textarea type="address" class="address" rows="3"> </textarea>
+                    <textarea v-model="register_form.address" type="address" class="address" rows="3"> </textarea>
                 </div>
-                <p id="errmsg">Address must have at least 10 characters...</p>
+                <p  v-if="address_error" id="errmsg">Address must have at least 5 characters...</p>
                 <div class="country">
                     <p>Country:</p>
-                        <select id="categories" class="categories">
+                        <select v-model="register_form.country" id="categories" class="categories">
                             <option value="AU">AUSTRALIA</option>
                             <option value="US">USA</option>
                             <option value="UK">UK</option>
@@ -43,42 +42,72 @@
             </form>
         </div><!--end.register-wrapper-->
     </div><!--end.main-register-->
+    <Articles />
+    <brands />
+    <News />
+    <Customers />
+    <Footer />
 </template>
 <script>
-
-import { ref } from 'vue'
-import { useStore } from 'vuex'
+import Header from '../components/Header'
+import Articles from '../components/Articles'
+import Footer from '../components/Footer'
+import Brands from '../components/Brands'
+import News from '../components/News'
+import Customers from '../components/Customers'
+import UserService from '../services/UserService'
 
 export default {
     name: 'Register',
-    setup() {
-        const register_form = ref({});
-        const store = useStore();
-
-        const register = () => {
-            store.dispatch('register', register_form.value);
-        }
+    data() {
         return {
-            register_form,
-            register,
-            name: null,
-            email: null,
-            password: null,
-            address: null,
-            country: null
+            userService: new UserService(),
+            register_form: {
+                name: '',
+                email: '',
+                password: '',
+                address: '',
+                country: '',
+            },
+            name_error: false,
+            email_error:false,
+            password_error: false,
+            address_error:false
         }
+    },
+    components: {
+        Header,
+        Articles,
+        Footer,
+        Brands,
+        News,
+        Customers
     },
     methods: {
         registerUser() { // TOTO NAPRAVITI LEPSU VALIDACIJU FORME
-            if(!this.name) {
-               alert('name must have character')
+            if(this.register_form.name < 1) {
+               this.name_error = true
+            } else {
+               this.name_error = false
+            }            
+            if(this.register_form.address.length <= 5) {
+                this.address_error = true
+            } else {
+                this.address_error = false
             }
-            if(this.email === "@") {
-                alert('must have @')
+            if(this.register_form.password.length < 6) {
+                this.password_error = true
+            } else {
+                this.password_error = false
             }
-            if(this.password < 5) {
-                alert('password must have minimum 5 characters')
+
+            if(this.name_error || this.address_error || this.password_error) {
+                return;
             }
+
+            this.$store.dispatch('register', this.register_form);
+
+            this.userService.create(this.register_form);
         }
     }
     }
@@ -97,6 +126,7 @@ export default {
     .name input {
         margin-left: 40px;
         width:200px;
+        margin-bottom: 10px;
     }
     .email {
         display: flex;
@@ -105,6 +135,7 @@ export default {
     .email input {
         margin-left: 42px;
         width:200px;
+        margin-bottom: 10px;
     }
     .password {
         display: flex;
@@ -113,6 +144,7 @@ export default {
     .password input {
         margin-left: 16px;
         width:200px;
+        margin-bottom: 10px;
     }
     .address {
         display: flex;
@@ -124,6 +156,7 @@ export default {
         background-color:#d3d3d3;
         border: 1px solid black;
         border-radius: 5px;
+        margin-bottom: 10px;
     }
 
     .country {
@@ -155,7 +188,6 @@ export default {
         padding: 20px 0;
         background-color:#d3d3d3;
         border-radius: 10px;
-        margin-top: 40px;
     }
     .register {
         text-align:center;
@@ -164,6 +196,7 @@ export default {
         padding-bottom: 10px;
         color: #e24c00;
     }
+ 
     input {  
         border: 1px solid black;
         border-radius: 5px;
@@ -177,11 +210,80 @@ export default {
     }
     .main-register {
         background-color:#e24c00;
-        width:100%;
-        height:100vh;
-        position:fixed;
+        padding: 20px 0;
         
     }
 
+    @media screen and (min-width:320px) and (max-width: 620px) {
+        
+    .register-wrapper {
+        width: 300px;
+        margin:0 auto;
+        padding: 20px 0;
+        background-color:#d3d3d3;
+        border-radius: 10px;
+       
+    }
+    .name {
+        display: block;
+        margin:0;
+    }
+    .name p {
+        text-align:center;
+    }
+    .name input {
+        margin:0 auto;
+        width:150px;
+    }
+    .email {
+        display: block;
+        margin:0;
+    }
+    .email p {
+        text-align:center;
+    }
+    .email input {
+        margin:0 auto;
+        width:150px;
+    }
+    .password {
+        display: block;
+        margin:0;
+    }
+    .password p{
+        text-align:center;
+    }
+    .password input {
+        margin:0 auto;
+        width:150px;
+    }
+    .address {
+        display: block;
+        margin:0;
+    }
+    .adress p {
+        text-align:center;
+    }
+    .address textarea {
+        margin:0 auto;
+        width:170px;
+        background-color:#d3d3d3;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
 
+    .country {
+        display: block;
+        margin:0;
+        margin-bottom:10px;
+    }
+
+    .categories {
+        margin:0 auto;
+        width:170px;
+        padding: 5px 0;
+        background-color:#d3d3d3;
+    }
+
+    }
 </style>

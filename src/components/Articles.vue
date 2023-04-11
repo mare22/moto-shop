@@ -13,11 +13,6 @@
                     <router-link :to="'/products/' + category.name">
                         <img :src="require('../assets/images/' + category.img)" alt="">
                     </router-link>
-
-                    <!-- <a href="" alt="">
-                        <img :src="require('../assets/images/' + category.img)" alt="">
-                    </a> -->
-                    
                 </div> <!--end.content-img-->
                 <h4>{{ category.name }}</h4>
             </div> <!--end.content-box-->

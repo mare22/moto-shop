@@ -1,46 +1,45 @@
 <template lang="">
+    
     <div class="img-cont">
-        <img :src="require('../assets/images/' + image)" alt="">
+        <img :src="'https://drive.google.com/uc?id=' + product.img" alt="">
     </div> <!--end.img-cont-->
     <div class="content-container">
-        <h3>Product name: {{ name }}</h3>
-        <p>Product price: <br> {{ price }} $</p>
+        <h3>Product name: {{ product.name }}</h3>
+        <p>Product price: <br> {{ product.price }} $</p>
     </div><!--end.content-container-->
     <div class="total">
         <p>Quantity:</p>
         <div class="quantity-wrapper">
             <span @click="decreaseQuantity" class="minus">-</span>
-            <span class="num"> {{ quantity }}</span>
+            <span class="num"> {{ product.quantity }}</span>
             <span @click="increaseQuantity" class="plus">+</span>
         </div>
         <div class="amount">
-            <p class="product-total-price">{{ price * quantity }}$</p>
+            <p class="product-total-price">{{ product.price * product.quantity }}$</p>
         </div>
-        <button @click="$emit('remove', productId)" class="remove">REMOVE</button>
+        <button @click="$emit('remove', product.id)" class="remove">REMOVE</button>
     </div> <!--end.total-->
 </template>
 <script>
 export default {
     name:'CartSingleProduct',
-    props: ['name', 'image', 'price', 'productId'],
-    data() {
-        return {
-            quantity: 1
-        }
-    },
+    props: ['product'],
     methods: {
         increaseQuantity() {
-            this.quantity += 1;
-            this.$emit('quantityChange');
-
+            for(let i = 0; i < this.$store.state.cart.length; i++) {
+                const prodState = this.$store.state.cart[i];
+                if(prodState.id === this.product.id) {
+                    prodState.quantity += 1;
+                }
+            }
         },
         decreaseQuantity() {
-            if(this.quantity <= 1) {
-                return;
+            for(let i = 0; i < this.$store.state.cart.length; i++) {
+                const prodState = this.$store.state.cart[i];
+                if(prodState.id === this.product.id && this.product.quantity > 1) {
+                    prodState.quantity -= 1;
+                }
             }
-            this.quantity -= 1;
-
-            this.$emit('quantityChange');
         },
     },
 

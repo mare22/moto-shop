@@ -11,6 +11,7 @@ import Login from '../pages/Login.vue'
 import Comments from '../components/Comments.vue'
 import Admin from '../pages/Admin.vue'
 import Register from '../components/Register.vue'
+
 const routes = [
     {
         path: '/products/:category',
@@ -69,7 +70,6 @@ const routes = [
         path: '/register',
         component: Register
      }
-   
 ]
 const router = createRouter({
     history: createWebHistory(),

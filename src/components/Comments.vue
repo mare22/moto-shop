@@ -58,9 +58,6 @@ export default {
     },
     methods: {
         addComment() {
-            // if(!nekaVarijabla) // ulazi na: null, '', [], {}, undifiend, false
-
-
             if(!this.$parent.product.comments) {
                 this.$parent.product.comments = [];
             }

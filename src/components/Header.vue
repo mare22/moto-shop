@@ -22,7 +22,7 @@
                                 </router-link> 
                             </li>
                             <li>
-                                <router-link class="active no-underline" :to="'/NewsPage'">
+                                <router-link class="active no-underline" :to="'/'">
                                     NEWS
                                 </router-link>
                             </li>
@@ -36,6 +36,14 @@
                                     <i class="fa-solid fa-cart-shopping"></i> {{ prodcutsInCart.length }}
                                 </router-link>
                             </li>
+                            <li >
+                                <router-link v-if="!$store.state.user" class="no-underline" :to="'/login'">
+                                    LOGIN
+                                </router-link>
+                                <a @click="logout" v-else class="no-underline">
+                                    LOGOUT
+                                </a>
+                            </li>
                         </ul>
                     </nav>
             </div> <!--end.wrapper-->
@@ -43,13 +51,10 @@
     </div> <!--end.header-->
 </template>
 <script>
-import CartService from '../services/CartService'
-
 export default {
     name: 'header',
     data() {
         return {
-            cartService: new CartService(),
         }
     },
     computed: {
@@ -57,6 +62,11 @@ export default {
             return this.$store.state.cart
         }
     },
+    methods: {
+        logout() {
+            this.$store.dispatch('logout');
+        }
+    }
 }
 </script>
 <style>

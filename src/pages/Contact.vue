@@ -6,10 +6,14 @@
                 <br> Let's achieve cooperation to mutual satisfaction.</h3>
                     <div class="contact-box">
                         <h2>Contact Us</h2>
-                        <input type="text" class="field" placeholder="Your Name">
-                        <input type="email" class="field" placeholder="Your Email">
-                        <input type="text" class="field" placeholder="Your Phone">
-                        <textarea class="field" placeholder="Message"></textarea>
+                        <input v-model="name" type="text" class="field" placeholder="Your Name">
+                        <p v-if="name_error">Your Name must have minimum 1 character...</p>
+                        <input v-model="email" type="email" class="field" placeholder="Your Email">
+                        <p v-if="email_error"> Your email must contain "@" character </p>
+                        <input v-model="phone" type="number" class="field" placeholder="Your Phone"
+                        >
+                        <p v-if="phone_error"> Your phone must contains 9 character of numbers </p>
+                        <textarea v-model="message" class="field" placeholder="Message ( optional )"></textarea>
                         <button @click="contactUs" class="send">Send</button>
                     </div> <!--end.contact-box-->
         </div> <!--end.wrapper-->
@@ -26,16 +30,52 @@ export default {
         Header,
         Footer
     },
+    data() {
+        return {
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+
+            name_error: false,
+            email_error: false,
+            phone_error: false
+        }
+    },
     methods: {
         contactUs() {
             //TODO validate data
-
-
-            Swal.fire(
+            if(this.name.length < 1) {
+                this.name_error = true
+               
+            } 
+            if(this.email.indexOf("@") === -1) {
+                this.email_error = true
+            }
+            if(this.phone.length < 9 ) {
+                this.phone_error = true
+                return
+            }
+            else {
+                Swal.fire(
                 'Success!',
                 'Thaks for contacting us. We will answer as soon as possible!',
                 'success'
-            )
+                ).then(() => {
+                    this.$router.push({path:'/'})
+                })
+
+                this.name = ""
+                this.email = ""
+                this.phone = ""
+                this.message = ""
+
+                this.name_error = ""
+                this.email_error = ""
+                this.phone_error = ""
+                this.message_error = ""
+            }
+            
         }
     },
 }
@@ -45,6 +85,10 @@ import Footer from '../components/Footer'
 <style scoped>
     .contact {
         background-color: #d3d3d3
+    }
+    .contact-box p {
+        font-size: 8px;
+        color:red;
     }
     .wrapper {
         padding: 20px 0;
@@ -59,7 +103,7 @@ import Footer from '../components/Footer'
     .contact-box {
         display:grid;
         width:300px;
-        margin: 0 auto;
+        margin: 0 auto; 
         padding: 20px 0;
     }
     .field {

@@ -21,7 +21,6 @@ import Articles from '../components/Articles'
 import Brands from '../components/Brands'
 import News from '../components/News'
 import Customers from '../components/Customers'
-import ProductService from '../services/ProductService';
 import Footer from '../components/Footer'
 
 import { onBeforeMount } from 'vue'
@@ -33,9 +32,7 @@ export default {
     const store = useStore()
 
     onBeforeMount(() => {
-      // console.log(store.state.user.email)
-      const user = store.dispatch('fetchUser')
-      console.log(user);
+      store.dispatch('fetchUser')
     })
   },
   name: 'home',
@@ -48,16 +45,6 @@ export default {
     Customers,
     Footer
     
-  },
-  async mounted() {
-        const productService = new ProductService();
-
-        // const products = await productService.all();
-
-        const helmets = await productService.getByCategory("Helmets");
-
-
-        console.log(helmets)
   }
 }
 </script>

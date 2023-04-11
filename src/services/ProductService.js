@@ -55,4 +55,13 @@ export default class ProductService {
             .doc(productId)
             .update(data);
     }
+
+    async create(data) { // dodavanje u bazu ordera
+        await this.db.collection('products').add(data);
+
+        //todo
+        // 1. validacija
+        // 2. show alert of success added product
+        // 3. clean inputs
+    }
 }

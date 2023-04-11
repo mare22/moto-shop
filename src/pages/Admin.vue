@@ -1,70 +1,166 @@
 <template>
-    <!--<div v-if="user.email == 'admin@admin.com'" class="admin">-->
-        <div class="wrapper">
-            <h2>HELLO ADMIN</h2>
+    <Header />
+    <div v-if="user && user.is_admin" class="admin">
+    <div class="wrapper">
+            <h2>HELLO {{ user.email}}</h2>
             <h4>Please fill the fields below to add a new product:</h4>
                 <div class="select">
                     <p>Select category:</p>
-                        <select id="categories" class="categories">
-                            <option value="HL">HELMETS</option>
-                            <option value="SH">SHOES</option>
-                            <option value="ACC">ACCESSORIES</option>
-                            <option value="JCT">JACKETS</option>
-                            <option value="GL">GLOVES</option>
+                        <select v-model="product.category" id="categories" class="categories">
+                            <option value="Helmets">HELMETS</option>
+                            <option value="Shoes">SHOES</option>
+                            <option value="Accessories">ACCESSORIES</option>
+                            <option value="Jackets">JACKETS</option>
+                            <option value="Gloves">GLOVES</option>
                         </select>
                 </div><!--end.select-->
                 <div class="desc">
                     <p>Description:</p>
-                    <textarea class="text" rows="3"> </textarea>
-                    
+                    <textarea v-model="product.description" class="text" rows="3"> </textarea>
                 </div>
                 <div class="img">
-                    <p>Image:</p>
-                    <input type="text" class="url">
+                    <p>Image id:</p>
+                    <input v-model="product.img" type="text" class="url">
                 </div>
-                
                 <div class="name">
                     <p>Name:</p>
-                    <input type="text" class="name">
+                    <input v-model="product.name" type="text" class="inpname">
                 </div>
                 <div class="price">
                     <p>Price:</p>
-                    <input type="text" class="pr">
+                    <input v-model="product.price" type="number" class="pr">
                 </div>
-                <button class="add" type="submit">Add new prodcuct</button>
+                <button @click="createProduct" class="add">Add new prodcuct</button>
         </div> <!--end.wrapper-->
-    
+
+        <!-- orders -->
+        <div>
+            <h1> Orders</h1>
+            <table>
+                <tr>
+                    <th>transaction_number</th>
+                    <th>User id</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Created at</th>
+                </tr>
+                <tr v-for="(order, index) in orders" :key="index">
+                    <td>{{ order.transaction_number }}</td>
+                    <td>{{ order.user_id }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>{{ new Date(order.created_at).toLocaleString() }}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <Articles />
+    <brands />
+    <News />
+    <Customers />
+    <Footer />
 </template>
 <script>
+import Header from '../components/Header'
+import Articles from '../components/Articles'
+import Footer from '../components/Footer'
+import Brands from '../components/Brands'
+import News from '../components/News'
+import Customers from '../components/Customers'
+import { onBeforeMount } from 'vue'
+import { useStore } from 'vuex'
+import ProductService from '../services/ProductService'
+import OrderService from '../services/OrderService'
+
 export default {
-    name: 'Admin'
+    name: 'Admin',
+    data() {
+        return {
+            orders: [],
+            product: {
+                category: '',
+                description: '',
+                name: '',
+                img:'',
+                price: null
+            },
+            productService: new ProductService(),
+            orderService: new OrderService(),
+        }
+    },
+    setup() {
+        const store = useStore()
+
+        onBeforeMount(async () => {
+            await store.dispatch('fetchUser')
+        })
+  },
+    computed: {
+        user() {
+            return this.$store.state.user
+        }
+    },
+    async mounted() {
+        this.orders = await this.orderService.all();
+    },
+    components: {
+        Header,
+        Articles,
+        Footer,
+        Brands,
+        News,
+        Customers
+    },
+    methods: {
+        createProduct() {
+            this.productService.create(this.product);
+        }
+    }
 }
 </script>
 <style scoped>
+    table, td, th {
+    border: 1px solid;
+    padding: 10px   
+ }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+    .admin {
+        padding:20px 0;
+        background-color: #eae8e8;
+    }
     .wrapper h2 {
-        font-size:17px;
+        color:white;
     }
     .wrapper h4 {
         font-weight: 400;
         font-size:15px;
-        padding-bottom:10px;
+        padding: 10px 0;
+        
     }
     .select {
         display:flex;
-        margin:0 10px;
+        margin: 0 10px;
     }
     .categories {
-        font-size:10px;
+        font-size:14px;
+        margin-left: 70px;
+        width:100px;
+        padding: 8px 0;
     }
    
     .wrapper {
-        width:50%;
-        margin: 0 auto;
-        text-align: center;
-        background-color: #9e9ee8;
-        border-radius:5px;
-        padding:20px 0;
-        margin-top:20px;
+        width: 500px;
+        margin:0 auto;
+        padding: 20px 0;
+        background-color:#79828d;
+        border-radius: 10px;
+        
+        text-align:center;
     }
     .select p {
         margin-right: 10px; 
@@ -78,7 +174,7 @@ export default {
     }
     .text {
         width:200px;
-        margin-left:10px;
+        margin-left:50px;
         
     }
     .img {
@@ -89,12 +185,19 @@ export default {
         margin-left: 10px; 
     }
     .url {
-        margin-left: 10px;
+        margin-left: 85px;
+        width:200px;
+        padding: 3px 0;
     }
     .name {
         display:flex;
         margin-left: 10px;
         margin-bottom: 7px;
+    }
+    .inpname {
+        margin-left: 86px;
+        width:200px;
+        padding: 3px 0;
     }
     .price {
         display:flex;
@@ -104,8 +207,10 @@ export default {
         margin-left:10px;
     }
     .pr {
-        margin-left:17px;
-        margin-bottom:20px;
+        margin-left: 93px;
+        width:200px;
+        padding: 3px 0;
+        margin-bottom: 20px;
     }
     .add {
     padding: 5px 15px;
@@ -124,8 +229,13 @@ export default {
     }
 
     @media screen and (min-width:320px) and (max-width: 620px) {
+    .admin {
+        padding:20px 0;
+        background-color: #eae8e8;
+    }
         .wrapper h2 {
-        font-size:17px;
+        font-size:18px;
+        padding-bottom:10px;
     }
     .wrapper h4 {
         font-weight: 400;
@@ -134,50 +244,58 @@ export default {
     }
     .select {
         display:block;
-        margin:0 10px;
+        margin: 0 auto;
+    }
+    .wrapper {
+        width: 300px;
+        margin:0 auto;
+        padding: 20px 0;
+        border-radius: 10px;
+        text-align:center;
     }
     .categories {
-        font-size:13px;
-    }
-   
-    .wrapper {
-        width:50%;
-        margin: 0 auto;
-        text-align: center;
-        background-color: #9e9ee8;
-        border-radius:5px;
-        padding:20px 0;
-        margin-top:20px;
+        margin: 0;
+        font-size:12px;
     }
     .select p {
         text-align:center;
-    }
-    .desc p {
-        margin-left: 10px; 
+        padding-bottom:8px;
     }
     .desc {
         display:block;
-        padding: 10px 0;
+        width:150px;
+        margin: 0 auto;
+    }
+    .desc p{
+        padding-bottom:8px;
+        margin:0;
     }
     .text {
         width:130px;
-        margin-left:10px;
-        
+        margin:0 auto;
     }
     .img {
         display:block;
-        padding-bottom: 10px;
-        margin: 0 auto;
     }
     .img p{
        text-align:center;
+       margin:0;
+       padding-bottom:8px;
     }
     .url {
-        margin-left: 0px;
+        width:150px;
+        margin:0 auto;
+    }
+    .inpname {
+        margin: 0 auto;
+        width:150px;
     }
     .name {
         display:block;
         margin: 0 auto;
+    }
+    .name p {
+        padding-bottom:8px;
     }
     .price {
         display:block;
@@ -185,14 +303,18 @@ export default {
     }
     .price p {
         text-align:center;
+        margin:0;
+        padding-bottom:8px;
+        padding-top:8px;
     }
 
     .pr {
         margin: 0 auto;
-
+        width:150px;
+    
     }
     .add {
-        margin-top: 10px;
+        margin-top: 20px;
     }
 }
 </style>

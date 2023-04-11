@@ -1,4 +1,5 @@
 <template>
+    <Header />
     <div class="main-login">
             <div class="login">
                 <div class="wrapper">
@@ -25,11 +26,21 @@
                 </div><!--end.wrapper-->
             </div>
     </div><!--end.main-login-->
+    <Articles />
+    <brands />
+    <News />
+    <Customers />
+    <Footer />
 </template>
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
- 
+import Header from '../components/Header'
+import Articles from '../components/Articles'
+import Footer from '../components/Footer'
+import Brands from '../components/Brands'
+import News from '../components/News'
+import Customers from '../components/Customers'
 export default {
     name: "Login",
     setup() { //composition API
@@ -44,13 +55,20 @@ export default {
             login,
         }
     },
+    components: {
+        Header,
+        Articles,
+        Footer,
+        Brands,
+        News,
+        Customers
+    }
 }
 </script>
 <style scoped>
     .wrapper{
         width: 500px;
         margin: 0 auto;
-        margin-top: 40px;
         text-align: center;
         background-color: white;
         border-radius: 10px;
@@ -74,9 +92,7 @@ export default {
     }
     .main-login {
         background-color:#5f84a2;
-        width:100%;
-        height:100vh;
-        position:fixed;
+        padding: 20px 0;
     }
 
     .login {

@@ -1,5 +1,4 @@
 //AUTHENTIFICATION
-
 import { createStore } from 'vuex'
 import router  from '../router'
 import { auth } from '../firebaseInit'
@@ -9,6 +8,7 @@ import {
      signOut
     
     } from 'firebase/auth'
+import UserService from '../services/UserService'
 
 
 export default createStore({
@@ -23,16 +23,21 @@ export default createStore({
         CLEAR_USER (state) {
             state.user = null
         },
-        ADD_PRODUCT_TO_CART (state, productId) { //firebase OBJ
-            if(state.cart.indexOf(productId) === -1) {
-                state.cart.push(productId);
+        ADD_PRODUCT_TO_CART (state, product) { //firebase OBJ
+            if(state.cart.indexOf(product) === -1) {
+                state.cart.push(product);
             }
         },
         REMOVE_PRODUCT_FROM_CART(state, productId) {
-            let index = state.cart.indexOf(productId);
-            if (index !== -1) {
-                state.cart.splice(index, 1);
+            for(let i = 0; i < state.cart.length; i++) {
+                if(state.cart[i].id === productId) {
+                    state.cart.splice(i, 1);
+                    break;
+                }
             }
+        },
+        CLEAN_CART(state) {
+            state.cart = [];
         }
     },
     actions: {
@@ -58,8 +63,16 @@ export default createStore({
                 return 
             }
 
-            commit('SET_USER', auth.currentUser)
+            const userService = new UserService();
 
+            const user = await userService.getUserByEmail(email);
+
+            commit('SET_USER', user)
+
+            if(user.is_admin) {
+                router.push('/admin')
+                return;
+            }
             router.push('/')
         },
 
@@ -68,7 +81,7 @@ export default createStore({
         async register( {commit}, details) {
             const { email, password } = details
             try {
-                await createUserWithEmailAndPassword(auth,email,password)
+                await createUserWithEmailAndPassword(auth, email, password)
                 
             } catch (error) {
                 switch(error.code) {
@@ -90,7 +103,7 @@ export default createStore({
 
                 return 
             }
-            commit('SET_USER', auth.currentUser)
+            commit('SET_USER', details)
 
             router.push('/')
         },
@@ -103,10 +116,15 @@ export default createStore({
         },
 
         fetchUser({ commit }) {
+            const userService = new UserService();
+
+
             auth.onAuthStateChanged(async user => {
                 if(user === null) {
                     commit('CLEAR_USER')
                 } else {
+                    user = await userService.getUserByEmail(user.email);
+        
                     commit('SET_USER', user)
                     if(router.isReady() && router.currentRoute.value.path === '/login') { //ako smo trenutno na login stranici
                          router.push('/')

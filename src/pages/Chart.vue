@@ -1,18 +1,10 @@
 <template>
     <div class="chart">
         <Header />
-        <div class="chart-wrapper">
+        <div v-if="checkoutBtn" class="chart-wrapper">
             <h2>YOUR CHART</h2>
             <div v-for="(product, index) in productsInCart" :key="index"  class="container">
-                <CartSingleProduct
-                    ref="cartproducts"
-                    @remove="removeProduct"
-                    @quantityChange="quantityChanged"
-                    :name="product.name" 
-                    :image="product.img" 
-                    :price="product.price" 
-                    :productId="product.id"
-                />
+                <CartSingleProduct :product="product" @remove="removeProduct"/>
             </div> <!--end.container-->
 
             <div class="total-container">   
@@ -21,6 +13,9 @@
             </div>
             
         </div><!--end.chart-wrapper-->
+        <div v-else>
+            <h1 style="text-align: center; margin: 30px">Cart is empty</h1>
+        </div>
         <Footer />
     </div><!--end.chart-->
     
@@ -32,7 +27,7 @@ import Footer from '../components/Footer'
 import CartSingleProduct from '../components/CartSingleProduct'
 import ProductService from '../services/ProductService'
 import Swal from 'sweetalert2'
-
+import OrderService from '../services/OrderService'
 export default {
     name:'Chart',
     components: {
@@ -44,61 +39,72 @@ export default {
         return {
             productService: new ProductService(),
             products: [],
-            totalPrice: 0
+            checkoutBtn: false,
+            orderService: new OrderService()
         }
     },
     computed: {
         productsInCart(){
-            //dovici id-eve projzovda iz korpe
-            const productsInCart = this.$store.state.cart;
-            // filtriraj projzvode na osnovu id-eva iz korpe
-
-            const cartedProducts = []
-            this.products.forEach(product => {
-                if(productsInCart.includes(product.id)){
-                    cartedProducts.push(product);
-                }
-            });
-
-            return cartedProducts
+            return this.$store.state.cart;
+        },
+        totalPrice() {
+            let totalPrice = 0;
+            for(let i=0; i< this.productsInCart.length;i++) {
+                totalPrice += this.productsInCart[i].price * this.productsInCart[i].quantity
+            }
+            return totalPrice
         }
     },
-    async mounted() {
-        //dovuci projzvode iz baze
+    async mounted() {       
+        //dovuci proizvode iz baze
        this.products = await this.productService.all() //vraca sve proizvode iz baze
-    },
-    updated() {
-        this.calculateTotalPrice();    
+
+       if(this.$store.state.cart.length > 0) {
+            this.checkoutBtn = true;
+       }
     },
     methods: {
         removeProduct(productId) {
             this.$store.commit('REMOVE_PRODUCT_FROM_CART', productId); 
         },
-        quantityChanged() {
-            this.calculateTotalPrice();    
-        },
-        calculateTotalPrice() {
-            this.totalPrice = 0;
-            if(!this.$refs.cartproducts) return;
-        
-
-            console.log(this.$refs.cartproducts)
-            for(let i = 0; this.$refs.cartproducts.length > i; i++) {
-                let product = this.$refs.cartproducts[i];
-
-                this.totalPrice += parseInt(product.price) * product.quantity;
-            }
-        },
         checkoutMsg() {
+
+            if(!this.$store.state.user) {
+                this.$router.push({path:'/login'})
+                return;
+            }
+            console.log(this.$store.state.user);
+            const date = new Date().toString();
+            const transactionNumber = Date.now();
+
+            for(let i=0; i< this.productsInCart.length;i++) { //create order
+                const product = this.productsInCart[i]
+
+                this.orderService.create({ // create order
+                    "product_id": product.id,
+                    "quantity": product.quantity,
+                    "price": product.price,
+                    "created_at": date,
+                    "transaction_number": transactionNumber,
+                    "user_id": this.$store.state.user.uid
+                })
+            }
+            
             //AKO NEMA NIKAKVOG PROIZVODA PRIKAZATI PORUKU I NE DOZVOLITI DA PRIKAZE SUCESS
             Swal.fire('GREAT!',
                     'You purchase your products!',
-                    'success')
+                    'success').then(() => {
+                        this.$store.commit('CLEAN_CART'); 
+                        this.checkoutBtn = false;
+                    })
+            
+                    
         }
     }
+    
 }
 
-
+    
 </script>
 
 <style scoped>

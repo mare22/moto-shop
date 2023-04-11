@@ -86,10 +86,9 @@ h3 {
   color: #fff;
   font-weight: normal;
   font-size: 9px;
-  border: 3px solid #cf0e0e;
   padding: 10px 5px;
   border-radius: 10px;
-}/*# sourceMappingURL=style.css.map */
+}
 h2 {
   color: #000000;
 }
@@ -276,10 +275,13 @@ h2 {
     transition: all .5s;
     height: 0vh;
   }
+  .nav-list {
+    display: none;
+  }
   .nav-list li {
     opacity: 0;
-    line-height: 30px;
-    margin: 5px 0;
+    line-height: 15px;
+    margin: 8px 0;
     transition: all .5s;
   }
   .nav-list li a.active, .nav-list li a:hover {
@@ -295,7 +297,7 @@ h2 {
     display: none;
   }
   #check:checked ~ .nav-list {
-    height: 250px;
+    height: 360px;
     
   }
   #check:checked ~ .nav-list li{
@@ -310,7 +312,7 @@ h2 {
     
   }
   .intro .wrapper h1 {
-    margin-top: 110px;
+    margin-top: 90px;
     font-size: 18px;
     padding: 20px 0;
     
@@ -327,7 +329,7 @@ h2 {
    
   }
   .top {
-    height: 50vh;
+    height: 40vh;
   }
  
 
@@ -400,7 +402,8 @@ h2 {
 
   .intro .wrapper h1 {
     margin-top: 60px;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: normal;
   }
 
   .articles .wrapper h2 {
@@ -582,6 +585,9 @@ h2 {
     margin-top: 150px;
     font-size: 25px;
     padding: 25px 0;
+  }
+  .top {
+    height:70vh;
   }
 }
 
