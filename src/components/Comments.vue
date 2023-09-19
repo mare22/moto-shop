@@ -8,13 +8,20 @@
                     v-if="this.$store.state.user !== null"
                     v-on:submit.prevent="addComment" class="comment-form">
                     <textarea v-model="commentText" rows="3" placeholder="Write Your Comment"> </textarea>
+                    <input type="text" v-model="numberInput">
                     <button type="submit">Post Comment</button>
                 </form>
+
+
+
+
+
                 </div>
                 <div v-if="$parent.product">
                     <div v-for="(comment, index) in $parent.product.comments" :key="index" class="user-comments" style="margin-bottom: 10px">
                     <div class="name">
                     <h4>{{ comment.username }}</h4>
+
                     </div> <!--end.name-->
 
                     <div class="rating-container">
@@ -31,11 +38,13 @@
                             <label for="rating1" class="fa fa-star"></label>
                         </div> <!--end.star-icon-->
                     </div> <!--end.raiting-container-->
-
+                 
                     <div class="review">
                         <p>
                             {{comment.comment }}    
                         </p>
+                           <p v-if="comment.add_number">{{ comment.add_number }}</p> 
+                           <p v-else>No rating</p>
                     </div>
                 </div><!--end.user-comments-->
                 
@@ -53,7 +62,8 @@ export default {
     data() {
         return {
             commentText: '',
-            productService: new ProductService()
+            productService: new ProductService(),
+            numberInput: ""
         }
     },
     methods: {
@@ -61,21 +71,41 @@ export default {
             if(!this.$parent.product.comments) {
                 this.$parent.product.comments = [];
             }
-
-            this.$parent.product.comments.push({
+            
+            if(this.numberInput.trim().length === 0) {
+                this.$parent.product.comments.push({
                 "username": this.$store.state.user.email,
-                "comment": this.commentText
-            });
+                "comment": this.commentText,
+                
+            })
+            } else {
+                this.$parent.product.comments.push({
+                "username": this.$store.state.user.email,
+                "comment": this.commentText,
+                "add_number": parseInt(this.numberInput)
+                
+            })
+            }
+            
 
+           
+           
             this.productService.updateProduct(this.$parent.product.id, {
                 'comments': this.$parent.product.comments,
+                
             });
+
+            
         }
     }
+
+    
 }
 </script>
 <style scoped>
-
+.add_number {
+    display:flex;
+}
 .comments {
     background-color:#eae8e8;
     border: 1px solid red;

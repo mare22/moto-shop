@@ -5,8 +5,7 @@
             <h1>News</h1> 
         </div><!--end.news-header-->
         <div class="news-page-wrapper">
-            <h2 v-html="$route.query.title"></h2><!---OVDE TREBA DA SE BINDUJE KADA 
-                SE KLIKNE IZ HOME DA SE PRIKAZE TACNO TA VEST-->
+            <h2 v-html="$route.query.title"></h2>
             <div class="img-cont">
                 <img :src="require('../assets/images/news/' + $route.query.image)" alt="">
             </div> <!--end.img-cont-->

@@ -47,7 +47,7 @@ export default {
     async mounted() {
         const productService = new ProductService();
         
-        this.product = await productService.getById(this.$route.params.id);
+        this.product = await productService.getById(this.$route.params.id); //mapiranje rute sa korisnickim id-jem
     },
     methods: {
         increaseQuantity() {
@@ -66,7 +66,6 @@ export default {
     }
 }
 
-//Ubaciti funkcionalnost counter + i -
 
 </script>
 <style scoped>

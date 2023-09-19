@@ -74,10 +74,10 @@ export default {
                 return;
             }
             console.log(this.$store.state.user);
-            const date = new Date().toString();
+            const date = new Date().toString(); 
             const transactionNumber = Date.now();
 
-            for(let i=0; i< this.productsInCart.length;i++) { //create order
+            for(let i=0; i< this.productsInCart.length;i++) { 
                 const product = this.productsInCart[i]
 
                 this.orderService.create({ // create order
@@ -90,15 +90,12 @@ export default {
                 })
             }
             
-            //AKO NEMA NIKAKVOG PROIZVODA PRIKAZATI PORUKU I NE DOZVOLITI DA PRIKAZE SUCESS
             Swal.fire('GREAT!',
                     'You purchase your products!',
                     'success').then(() => {
                         this.$store.commit('CLEAN_CART'); 
                         this.checkoutBtn = false;
-                    })
-            
-                    
+                    })    
         }
     }
     

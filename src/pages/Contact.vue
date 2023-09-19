@@ -44,7 +44,6 @@ export default {
     },
     methods: {
         contactUs() {
-            //TODO validate data
             if(this.name.length < 1) {
                 this.name_error = true
                

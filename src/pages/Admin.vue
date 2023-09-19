@@ -14,48 +14,74 @@
                             <option value="Gloves">GLOVES</option>
                         </select>
                 </div><!--end.select-->
+                <p v-if="cat_error">You must pick category...</p>
+
                 <div class="desc">
                     <p>Description:</p>
                     <textarea v-model="product.description" class="text" rows="3"> </textarea>
                 </div>
+                <p  v-if="product_errors.desc_error" 
+                    class="desc_error">
+                    Description must have minimum 5 characters...
+                </p>
+
                 <div class="img">
                     <p>Image id:</p>
                     <input v-model="product.img" type="text" class="url">
                 </div>
+                <p class="img_error"
+                     v-if="product_errors.img_error">
+                    ID must have minimun 5 characters...
+                </p>
+
                 <div class="name">
                     <p>Name:</p>
                     <input v-model="product.name" type="text" class="inpname">
                 </div>
+                <p calss="name_error" class="name_error"
+                    v-if="product_errors.name_error">
+                    Name must have minimum 3 characters...
+                </p>
+
+
                 <div class="price">
                     <p>Price:</p>
-                    <input v-model="product.price" type="number" class="pr">
+                    <input v-model="product.price" 
+                    type="number" class="pr ">
                 </div>
+                <p v-if="product_errors.price_error" 
+                    class="price_error">
+                    You must enter the price...
+                </p>
                 <button @click="createProduct" class="add">Add new prodcuct</button>
         </div> <!--end.wrapper-->
 
         <!-- orders -->
-        <div>
-            <h1> Orders</h1>
-            <table>
-                <tr>
-                    <th>transaction_number</th>
-                    <th>User id</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Created at</th>
-                </tr>
-                <tr v-for="(order, index) in orders" :key="index">
-                    <td>{{ order.transaction_number }}</td>
-                    <td>{{ order.user_id }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>{{ order.price }}</td>
-                    <td>{{ new Date(order.created_at).toLocaleString() }}</td>
-                </tr>
-            </table>
-        </div>
+        <div class="orders">
+            <div style="overflow-x:auto;">
+                <div class="orders-wrapper">
+                        <h1> Orders</h1>
+                <table>
+                    <tr>
+                        <th>transaction_number</th>
+                        <th>User id</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Created at</th>
+                    </tr>
+                    <tr v-for="(order, index) in orders" :key="index">
+                        <td>{{ order.transaction_number }}</td>
+                        <td>{{ order.user_id }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.price }}</td>
+                        <td>{{ new Date(order.created_at).toLocaleString() }}</td>
+                    </tr>
+                </table>
+                </div>
+            </div>     
+        </div><!--end.orders-->
 
     </div>
-    <Articles />
     <brands />
     <News />
     <Customers />
@@ -63,7 +89,6 @@
 </template>
 <script>
 import Header from '../components/Header'
-import Articles from '../components/Articles'
 import Footer from '../components/Footer'
 import Brands from '../components/Brands'
 import News from '../components/News'
@@ -73,6 +98,7 @@ import { useStore } from 'vuex'
 import ProductService from '../services/ProductService'
 import OrderService from '../services/OrderService'
 
+import Swal from '../../node_modules/sweetalert2';
 export default {
     name: 'Admin',
     data() {
@@ -83,7 +109,15 @@ export default {
                 description: '',
                 name: '',
                 img:'',
-                price: null
+                price: '',
+                
+            },
+            product_errors: {
+                desc_error: false,
+                cat_error: false,
+                img_error: false,
+                name_error: false,
+                price_error: false
             },
             productService: new ProductService(),
             orderService: new OrderService(),
@@ -106,7 +140,6 @@ export default {
     },
     components: {
         Header,
-        Articles,
         Footer,
         Brands,
         News,
@@ -114,19 +147,56 @@ export default {
     },
     methods: {
         createProduct() {
-            this.productService.create(this.product);
+            if(this.product.description.length < 5 ) {
+                this.product_errors.desc_error = true
+            } else {
+                this.product_errors.desc_error = false
+            }
+            if(this.product.category === "") {
+                this.product_errors.cat_error = true
+            } else {
+                this.product_errors.cat_error = false
+            }
+            if(this.product.img.length < 5) {
+                this.product_errors.img_error = true
+            } else {
+                this.product_errors.img_error = false
+            }
+            if(this.product.name.length < 3) {
+                this.product_errors.name_error = true
+            } else {
+                this.product_errors.name_error = false
+            }
+            if( this.product.price === "") {
+                this.product_errors.price_error = true
+            } 
+                else {
+                this.productService.create(this.product);
+                Swal.fire(
+                'Success!',
+                'New product has been added into shop!',
+                'success'
+                ).then(() => {
+                    this.$router.push({path:'/'})
+                })
+            }
+            
         }
     }
 }
 </script>
 <style scoped>
+    .desc_error, .img_error, .name_error, .price_error {
+        color:red;
+        font-size:14px;
+    }
+ 
     table, td, th {
-    border: 1px solid;
-    padding: 10px   
- }
+        border: 1px solid;
+        padding: 5px;  
+    }
 
     table {
-    width: 100%;
     border-collapse: collapse;
     }
     .admin {
@@ -149,10 +219,10 @@ export default {
     .categories {
         font-size:14px;
         margin-left: 70px;
-        width:100px;
+        width:145px;
         padding: 8px 0;
+        color:red;
     }
-   
     .wrapper {
         width: 500px;
         margin:0 auto;
@@ -164,6 +234,7 @@ export default {
     }
     .select p {
         margin-right: 10px; 
+        
     }
     .desc p {
         margin-left: 10px; 
@@ -185,7 +256,7 @@ export default {
         margin-left: 10px; 
     }
     .url {
-        margin-left: 85px;
+        margin-left: 68px;
         width:200px;
         padding: 3px 0;
     }
@@ -227,7 +298,26 @@ export default {
     transition: 0.2s;
     
     }
+    .orders-wrapper h1 {
+        text-align:center;
+        padding:10px 0;
+    }
+    .orders-wrapper {
+        width:80%;
+        margin: 0 auto;
+    }
+    table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
 
+th, td {
+  text-align: left;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
     @media screen and (min-width:320px) and (max-width: 620px) {
     .admin {
         padding:20px 0;
@@ -316,5 +406,6 @@ export default {
     .add {
         margin-top: 20px;
     }
+   
 }
 </style>

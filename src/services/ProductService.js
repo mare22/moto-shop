@@ -36,7 +36,7 @@ export default class ProductService {
         return prodcutsByCat;
     }
 
-    async getById(productId) { // ovde pozivamo id proizvoda iz baze i vucemo kod nas na front
+    async getById(productId) { // pozivamo id proizvoda iz baze
         const products = await this.all();
 
         for(let product of products) {
@@ -59,9 +59,5 @@ export default class ProductService {
     async create(data) { // dodavanje u bazu ordera
         await this.db.collection('products').add(data);
 
-        //todo
-        // 1. validacija
-        // 2. show alert of success added product
-        // 3. clean inputs
     }
 }

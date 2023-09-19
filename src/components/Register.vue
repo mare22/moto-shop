@@ -21,7 +21,7 @@
                     type="password" 
                     v-model="register_form.password">
                 </div>
-                <p v-if="register_form.password_error" id="errmsg">Password must contain at least 6 sharacters...</p>
+                <p v-if="password_error" id="errmsg">Password must contain at least 6 sharacters...</p>
                 <div class="address">
                     <p>Address:</p>
                     <textarea v-model="register_form.address" type="address" class="address" rows="3"> </textarea>
@@ -84,12 +84,17 @@ export default {
         Customers
     },
     methods: {
-        registerUser() { // TOTO NAPRAVITI LEPSU VALIDACIJU FORME
+        registerUser() {
             if(this.register_form.name < 1) {
                this.name_error = true
             } else {
                this.name_error = false
-            }            
+            }
+            if(this.register_form.email.indexOf("@") === -1) {
+                this.email_error = true
+            } else {
+                this.email_error = false
+            }
             if(this.register_form.address.length <= 5) {
                 this.address_error = true
             } else {
@@ -101,7 +106,7 @@ export default {
                 this.password_error = false
             }
 
-            if(this.name_error || this.address_error || this.password_error) {
+            if(this.name_error || this.email_error || this.address_error || this.password_error) {
                 return;
             }
 

@@ -42,9 +42,9 @@ export default {
     },
     async mounted() {
         const category = this.$route.params.category;
-        this.products = await this.productService.getByCategory(category);
+        this.products = await this.productService.getByCategory(category);//await postavljamo kada asinhroni poziv pretvaramo u sinhroni
         if(this.products.length === 0) {
-          console.error("Nije dobr url putanje")
+          console.error("Nije dobar url putanje")
         }
 
     },

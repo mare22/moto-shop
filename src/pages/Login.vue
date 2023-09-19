@@ -33,7 +33,7 @@
     <Footer />
 </template>
 <script>
-import { ref } from 'vue'
+import { ref } from 'vue' 
 import { useStore } from 'vuex'
 import Header from '../components/Header'
 import Articles from '../components/Articles'

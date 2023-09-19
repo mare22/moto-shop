@@ -31,8 +31,8 @@ export default {
         }
     },
     async mounted() {
-        const categoryService = new CategoryService();
-        this.categories = await categoryService.all();
+        const categoryService = new CategoryService(); 
+        this.categories = await categoryService.all();//dovlacim kategories iz baze
 
         
   }
